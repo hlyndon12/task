@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <title>{% block head_title %}{% endblock %}</title>
+    {% block extra_head %}
+    {% endblock %}
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1 class="headder">Backend </h1>
+        {% block body %}
+
+        {% if messages %}
+        <div>
+          <strong>Messages:</strong>
+          <ul>
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        
+          <!--<strong>Menu:</strong>-->
+        <div class="wrapper">
+          <ul>
+            {% if user.is_authenticated %}
+            <li><button class="btn btn-outline-secondary"><a href="{% url 'account_logout' %}">Sign Out</a></button></li>
+            {% else %}
+            <li><button class="btn btn-outline-secondary"><a href="{% url 'account_login' %}">Sign In</a></button></li>
+            <li><button class="btn btn-outline-secondary"><a href="{% url 'account_signup' %}">Sign Up</a></button></li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="align">
+          {% block content %}
+          {% endblock %}
+          {% endblock %}
+          {% block extra_body %}
+          {% endblock %}
+      </div>
+      </div>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+</html>

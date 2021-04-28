@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="jumbotron">
+    <a href="{% url 'profile_view' %}" class="btn btn-primary btn-dark">profile</a>
+        <div class="list-group">
+            {% for object in list %}
+                <div class="list-group-item">
+                    <div class="card bg-dark text-white" >
+
+                        <img class="card-img-top" style="width: 125px;" src="{{object.Image.url}}" alt="Card image cap">
+                        <div class="card-header">
+                            {{object.title}}
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{object.body}}</p>
+                            <a href="{% url 'push-update' object.id %}" class="btn btn-primary">Update</a>
+                            <a href="{% url 'push-delete' object.id %}" class="btn btn-primary btn-danger">Delete</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            
+            {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}

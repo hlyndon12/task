@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-sm">
+            <div class="align">
+                <h1>Update Profile</h1>
+                <form action="" method="POST" enctype='multipart/form-data'>
+                    <div class="form-group">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" class="btn btn-primary" name="profile">
+                        <button style="border:none"><a href="{% url 'logout' %}">logout</a></button>
+                    </div>
+                </form>
+            </div>
+        </div>  
+    </div>
+</div>
+
+{% endblock %}

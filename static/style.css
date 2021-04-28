@@ -1,0 +1,22 @@
+.headder {
+  text-align: center;
+  color: #0d0036;
+  border: 5px solid #0d0036;
+  border-radius: 20px;
+}
+
+ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.wrapper {
+  padding: 20px;
+}
+.align {
+  text-align: center;
+}
+.avatar {
+  border-radius: 50%;
+}

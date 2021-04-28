@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+
+
+
+
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card" style="width: 15rem;">
+                <div class="align">
+                    <img class="card-img-top avatar" style="border-radius: 50%;width: 125px;" src="{{ details.Icon.url }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ details.User }}</h5>
+                        <p> 
+                        </p>
+                        <p class="card-text">
+                        </p>
+                    </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="align">
+                <h1>Update Profile</h1>
+                <form action="" method="POST" enctype='multipart/form-data'>
+                    <div class="form-group">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" class="btn btn-primary" name="profile">
+                        <button style="border:none"><a href="{% url 'logout' %}">logout</a></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% if user.is_superuser %}
+        <div class="col-sm">
+            <div class="align">
+                <h1>Create Push</h1>
+                <form action="" method="POST" enctype='multipart/form-data'>
+                    <div class="form-group">
+                        {% csrf_token %}
+                        {{ pushform.as_p }}
+                        <input type="submit" class="btn btn-primary" name="push">
+                        <a href="{% url 'push-detail' %}" class="btn btn-primary btn-danger">List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm">
+            
+                <div class="align">
+                    <div class="form-group">
+                        <h1>Push Notification</h1>
+                        <label for="">Title</label>
+                        <input type="text" class="form-control" id="title">
+                        <br>
+                        <a href="javascript:void(0)" onclick="send()">push</a>
+                    </div>
+                </div>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                <script>
+                    function send() {
+                        var title = document.getElementById('title').value;
+                        console.log(title);
+                        {% for l in push %}
+                        console.log('{{l.title}}');
+                           if ( title == '{{l.title}}' ) {
+                            Push.create('{{l.title}}', {
+                                body: '{{l.body}}',
+                                icon: '{{l.Image.url}}',
+                                timeout: 4000,
+                                onClick: function () {
+                                    window.focus();
+                                    this.close();
+                                }
+                            });
+                           }
+                        {% endfor %}
+                            
+                           }
+                    
+                </script>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
