@@ -9,6 +9,16 @@ from django.contrib.auth.models import User, auth
 # Create your views here.
 @login_required
 def profile_view(request):
+    user_all = userModel.objects.all()
+    flag = 0
+    for obj in user_all:
+        print(obj.User)
+        if request.user == obj.User:
+            flag = 1
+    if flag == 0:
+        print(request.user)
+        u = userModel.objects.create(User=request.user)
+        u.save()
     user = userModel.objects.get(User=request.user)
     form = UserForm(instance=user)
     push = pushNotifications.objects.all()
@@ -25,6 +35,7 @@ def profile_view(request):
             'pushform': pushform,
             'push': push,
         }
+
     if not request.user.is_authenticated:
         return render(request, '/login.html')
     if request.method == 'POST':
