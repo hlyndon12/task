@@ -5,7 +5,7 @@ from image_optimizer.fields import OptimizedImageField
 
 class userModel(models.Model):
     User = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    Icon = OptimizedImageField(default='avatar.jpg',
+    Icon = OptimizedImageField(default='images/avatar.jpg',
                                optimized_image_output_size=(250, 250),
                                optimized_image_resize_method='thumbnail',
                                upload_to="images/")
